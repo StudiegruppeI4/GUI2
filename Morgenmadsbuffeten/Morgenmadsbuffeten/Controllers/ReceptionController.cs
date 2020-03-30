@@ -9,16 +9,26 @@ using Morgenmadsbuffeten.Models;
 
 namespace Morgenmadsbuffeten.Controllers
 {
-    public class HomeController : Controller
+    public class ReceptionController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ReceptionController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ReceptionController(ILogger<ReceptionController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Expected()
+        {
+            return View();
+        }
+
+        public IActionResult Overview()
         {
             return View();
         }
