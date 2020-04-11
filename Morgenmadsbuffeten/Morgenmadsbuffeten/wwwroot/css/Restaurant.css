@@ -1,0 +1,14 @@
+﻿.restaurantWrapper
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    min-height: 30vh;
+}
+
+h3
+{
+    display: flex;
+    justify-content: center;
+}
