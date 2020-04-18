@@ -19,8 +19,6 @@ namespace Morgenmadsbuffeten.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("MorgenmadsbuffetenContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
             });
         }
     }

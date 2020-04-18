@@ -27,8 +27,13 @@ namespace Morgenmadsbuffeten
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddControllersWithViews(); 
             services.AddRazorPages();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("IsWaiter", policy => policy.RequireClaim("Waiter"));
@@ -37,7 +42,7 @@ namespace Morgenmadsbuffeten
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +70,19 @@ namespace Morgenmadsbuffeten
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            SeedRoles(roleManager);
+        }
+
+        public static void SeedRoles(RoleManager<IdentityRole> roleManager)
+        {
+            string[] roles = { "Waiter", "Receptionist" };
+            var tasks = new List<Task<IdentityResult>>();
+            foreach (string role in roles)
+            {
+                if (!roleManager.RoleExistsAsync(role).Result)
+                    tasks.Add(roleManager.CreateAsync(new IdentityRole(role)));
+            }
+            Task.WaitAll(tasks.ToArray());
         }
     }
 }
