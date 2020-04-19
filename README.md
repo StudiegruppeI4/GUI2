@@ -1,11 +1,11 @@
-# GUI2
+﻿# GUI2
 I4GUI Mandatory assignment 2 - Morgenmadsbuffeten
 
 Steps til at køre projektet:
-* 1. Åbn solution "Morgenmadsbuffeten.sln"
-* 2. Tjek at alle NuGet Packages er opdateret ved højre-klik på solution og trykke "Manage NuGet Packages for solution..", hvorefter der på pop-up vinduet gås ind på "Update" og opdatere alle de relevante pakker
-* 3. I "Package Manager Console", skriv kommandoen "Update-Database"
-* 4. Start projektet uden debugging
+* Åbn solution "Morgenmadsbuffeten.sln"
+* Tjek at alle NuGet Packages er opdateret ved højre-klik på solution og trykke "Manage NuGet Packages for solution..", hvorefter der på pop-up vinduet gås ind på "Update" og opdatere alle de relevante pakker
+* I "Package Manager Console", skriv kommandoen "Update-Database"
+* Start projektet uden debugging
 
 Der er på forhånd lagt en smule data ind i databasen, så den kan arbejdes med fra starten. Desuden er der også lagt nogle brugere ind der har adgang til staff siderne.
 Email og passwords for disse er:
