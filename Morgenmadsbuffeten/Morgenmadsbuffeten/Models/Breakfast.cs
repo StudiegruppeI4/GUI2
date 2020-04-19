@@ -1,13 +1,12 @@
 using System;
-using System.Generic;
 
 namespace Morgenmadsbuffeten.Models
 {
-    public class CheckedIn
+    public class Breakfast
     {
-        public int CheckedInChildren { get; set; }
-        public int CheckedInAdults { get; set; }
-        public DateTime CheckedInDate { get; set; }
-        public int CheckedInTotal { get; set; }
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public int Children { get; set; }
+        public int Adults { get; set; }
     }
 }

@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Morgenmadsbuffeten.Data;
 
-namespace Morgenmadsbuffeten.Data.Migrations
+namespace Morgenmadsbuffeten.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200418105907_RoleManagerInjection")]
-    partial class RoleManagerInjection
+    [Migration("20200419114114_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -219,6 +219,86 @@ namespace Morgenmadsbuffeten.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Morgenmadsbuffeten.Models.Breakfast", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Adults")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Children")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Breakfasts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adults = 6,
+                            Children = 10,
+                            Date = new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local)
+                        });
+                });
+
+            modelBuilder.Entity("Morgenmadsbuffeten.Models.RoomCheckedIn", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Adults")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Children")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RoomNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoomsCheckedIn");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adults = 2,
+                            Children = 2,
+                            Date = new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            RoomNumber = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Adults = 2,
+                            Children = 4,
+                            Date = new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            RoomNumber = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Adults = 2,
+                            Children = 4,
+                            Date = new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            RoomNumber = 3
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

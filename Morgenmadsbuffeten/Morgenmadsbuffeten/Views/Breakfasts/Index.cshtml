@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Reception";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/reception.css" />
+</head>
+<body>
+
+<div id="reception-wrapper">
+    <h1>Reception</h1>
+    <button class="MenuButton"><a asp-controller="Breakfasts" asp-action="Expected">Guest expected page</a></button>
+    <button class="MenuButton"><a asp-controller="Breakfasts" asp-action="Overview">Guest overview page</a></button>
+</div>
+
+</body>
+</html>

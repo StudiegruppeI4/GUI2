@@ -1,7 +1,15 @@
-﻿
+﻿@model Breakfast
 @{
-    ViewData["Title"] = "ReceptionOverview";
+    List<RoomCheckedIn> NotCheckedIns = (List<RoomCheckedIn>) ViewData["NotCheckedIn"];
+    ViewData["Title"] = "Kitchen Overview";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int totalAdults = 0, totalChildren = 0;
+
+    foreach (var room in NotCheckedIns)
+    {
+        totalAdults += room.Adults;
+        totalChildren += room.Children;
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -14,10 +22,10 @@
     <div id="Kitchen-Wrapper">
         <div id= "KitchenTime">
             <h3>Date:</h3>
-            <h3>@DateTime.Now</h3>
+            <h3>@Model.Date.ToShortDateString()</h3>
         </div>
-        <button>Refresh</button>
-        <table class="table-bordered">
+        <a class="btn btn-primary" asp-controller="Kitchen" asp-action="Index">Refresh</a>
+        <table class="table table-responsive-sm">
             <tr>
                 <th></th>
                 <th>Total Guest Expected</th>
@@ -26,21 +34,21 @@
             </tr>
             <tr>
                 <th>Adults</th>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
+                <td>@Model.Adults</td>
+                <td>@((Model.Adults - totalAdults) < 0 ? 0 : (Model.Adults - totalAdults))</td>
+                <td>@totalAdults</td>
             </tr>
             <tr>
                 <th>Children</th>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
+                <td>@Model.Children</td>
+                <td>@((Model.Children - totalChildren) < 0 ? 0 : (Model.Children - totalChildren))</td>
+                <td>@totalChildren</td>
             </tr>
             <tr>
                 <th>Total</th>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
+                <td>@(Model.Adults + Model.Children)</td>
+                <td>@(((Model.Adults - totalAdults) + (Model.Children - totalChildren)) < 0 ? 0 : ((Model.Adults - totalAdults) + (Model.Children - totalChildren)))</td>
+                <td>@(totalAdults + totalChildren)</td>
             </tr>
 
         </table>

@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Morgenmadsbuffeten.Data.Migrations
+namespace Morgenmadsbuffeten.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,11 +47,42 @@ namespace Morgenmadsbuffeten.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Breakfasts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Children = table.Column<int>(nullable: false),
+                    Adults = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Breakfasts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomsCheckedIn",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomNumber = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Children = table.Column<int>(nullable: false),
+                    Adults = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomsCheckedIn", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +103,7 @@ namespace Morgenmadsbuffeten.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -153,6 +183,21 @@ namespace Morgenmadsbuffeten.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Breakfasts",
+                columns: new[] { "Id", "Adults", "Children", "Date" },
+                values: new object[] { 1, 6, 10, new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.InsertData(
+                table: "RoomsCheckedIn",
+                columns: new[] { "Id", "Adults", "Children", "Date", "RoomNumber" },
+                values: new object[,]
+                {
+                    { 1, 2, 2, new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local), 1 },
+                    { 2, 2, 4, new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local), 2 },
+                    { 3, 2, 4, new DateTime(2020, 4, 19, 0, 0, 0, 0, DateTimeKind.Local), 3 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -209,6 +254,12 @@ namespace Morgenmadsbuffeten.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Breakfasts");
+
+            migrationBuilder.DropTable(
+                name: "RoomsCheckedIn");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
