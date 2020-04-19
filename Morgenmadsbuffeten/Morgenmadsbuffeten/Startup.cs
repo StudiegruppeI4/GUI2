@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +12,8 @@ using Morgenmadsbuffeten.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Morgenmadsbuffeten.Models;
+using System.Security.Claims;
 
 namespace Morgenmadsbuffeten
 {
@@ -42,7 +44,8 @@ namespace Morgenmadsbuffeten
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider,
+            RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -71,18 +74,42 @@ namespace Morgenmadsbuffeten
                 endpoints.MapRazorPages();
             });
             SeedRoles(roleManager);
+            SeedUsers(userManager);
         }
 
         public static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
             string[] roles = { "Waiter", "Receptionist" };
-            var tasks = new List<Task<IdentityResult>>();
             foreach (string role in roles)
             {
                 if (!roleManager.RoleExistsAsync(role).Result)
-                    tasks.Add(roleManager.CreateAsync(new IdentityRole(role)));
+                    roleManager.CreateAsync(new IdentityRole(role)).Wait();
             }
-            Task.WaitAll(tasks.ToArray());
+        }
+        public static void SeedUsers(UserManager<IdentityUser> userManager)
+        {
+            string[] emails = {"Waiter@Localhost", "Reception@Localhost", "Chef@Chef"};
+            string[] passwords = { "Secret7$", "Secret8$", "Secret9$"};
+            Claim[] claims = { new Claim("Waiter", "Yes"), new Claim("Receptionist", "Yes")};
+
+            for (int i = 0; i < emails.Length; i++)
+            {
+                if (userManager.FindByNameAsync(emails[i]).Result == null)
+                {
+                    var user = new IdentityUser();
+                    user.Email = emails[i];
+                    user.UserName = emails[i];
+                    user.EmailConfirmed = true;
+                    IdentityResult result = userManager.CreateAsync(user, passwords[i]).Result;
+                    if (result.Succeeded)
+                    {
+                        if (i <= 1)
+                        {
+                            userManager.AddClaimAsync(user, claims[i]).Wait();
+                        }
+                    }
+                }
+            }
         }
     }
 }

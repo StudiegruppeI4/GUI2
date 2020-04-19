@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-Morgenmadsbuffeten-B854386D-86E0-44DC-9E73-9E1973B3922E</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Models\NewFile.txt" />
+    <None Remove="Models\NewFile1.txt" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.3" />
