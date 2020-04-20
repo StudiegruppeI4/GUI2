@@ -6,36 +6,41 @@
 }
 
 <h1>Overview</h1>
-
-<p>@Model.First().Date.ToShortDateString()</p>
+<div class="d-inline-flex">
+    <p class="pr-5">@Model.First().Date.ToShortDateString()</p>
+    <p>
+        <a asp-action="AllOverview">See all dates</a>
+    </p>
+</div>
 
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RoomNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Children)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Adults)
-        </th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Children)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adults)
+            </th>
+        </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Children)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Adults)
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Children)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adults)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

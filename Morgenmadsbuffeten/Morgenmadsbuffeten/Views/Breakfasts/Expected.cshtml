@@ -6,7 +6,14 @@
 }
 
 <h1>Expected</h1>
-
+<div class="d-inline-flex mr-5">
+    <p class="pr-5">
+        <a asp-action="Create">Create New</a>
+    </p>
+    <p>
+        <a asp-action="AllExpected">See all dates</a>
+    </p>
+</div>
 <div>
     <h4>Breakfast - @Model.Date.ToShortDateString()</h4>
     <hr />

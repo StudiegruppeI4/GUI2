@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\Data\**" />
+    <Content Remove="Areas\Identity\Data\**" />
+    <EmbeddedResource Remove="Areas\Identity\Data\**" />
+    <None Remove="Areas\Identity\Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Migrations\20200419100137_InitialMigration.cs" />
     <Compile Remove="Migrations\20200419100137_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20200419102230_InitialMigration.cs" />
@@ -14,6 +21,10 @@
     <Compile Remove="Migrations\20200419103138_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20200419110304_InitialMigration.cs" />
     <Compile Remove="Migrations\20200419110304_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200419114114_InitialMigration.cs" />
+    <Compile Remove="Migrations\20200419114114_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200420105546_Initial.cs" />
+    <Compile Remove="Migrations\20200420105546_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +45,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Identity\Data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

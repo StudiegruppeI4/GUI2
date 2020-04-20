@@ -20,9 +20,9 @@ namespace Morgenmadsbuffeten.Controllers
         }
 
         // GET: Breakfasts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Breakfasts.ToListAsync());
+            return View();
         }
 
         // GET: Breakfasts/Details/5
@@ -49,10 +49,22 @@ namespace Morgenmadsbuffeten.Controllers
             return View(await _context.RoomsCheckedIn.Where(rci => rci.Date == DateTime.Today).ToListAsync());
         }
 
+        // GET: Breakfasts/Overview
+        public async Task<IActionResult> AllOverview()
+        {
+            return View(await _context.RoomsCheckedIn.ToListAsync());
+        }
+
         // GET: Breakfasts/Expected
         public async Task<IActionResult> Expected()
         {
             return View(await _context.Breakfasts.Where(b => b.Date == DateTime.Today).FirstOrDefaultAsync());
+        }
+
+        // GET: Breakfasts/Expected
+        public async Task<IActionResult> AllExpected()
+        {
+            return View(await _context.Breakfasts.ToListAsync());
         }
 
         // GET: Breakfasts/Create
@@ -68,13 +80,11 @@ namespace Morgenmadsbuffeten.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Date,Children,Adults")] Breakfast breakfast)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(breakfast);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(breakfast);
+
+            _context.Add(breakfast);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Expected));
+            
         }
 
         // GET: Breakfasts/Edit/5

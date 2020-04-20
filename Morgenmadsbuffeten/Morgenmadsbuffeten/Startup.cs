@@ -55,7 +55,6 @@ namespace Morgenmadsbuffeten
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -86,6 +85,7 @@ namespace Morgenmadsbuffeten
                     roleManager.CreateAsync(new IdentityRole(role)).Wait();
             }
         }
+
         public static void SeedUsers(UserManager<IdentityUser> userManager)
         {
             string[] emails = {"Waiter@Localhost", "Reception@Localhost", "Chef@Chef"};
